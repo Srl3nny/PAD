@@ -1,0 +1,40 @@
+
+#Arquivo makefile para exercício de pthreads disciplina FT045a
+#Bruno Luciano Amadio Caires
+#Data: 01/05/16
+#
+CC=xlc
+CC2=gcc
+DIRETIVA=-qsmp -qthreaded -q64
+DIRETIVA2=-maix64 -c
+OBJ=leMatriz.o
+
+
+FONTES= gera-matriz.c leMatriz.c matriz-paralelo.c matriz-serial.c
+OBJETOS= $(FONTES:.c=.o)
+
+gera-matriz.o: gera-matriz.c
+	@echo "Compilando arquivo" $<
+	$(CC) $< -q64
+	mv a.out $@
+
+leMatriz.o: leMatriz.c
+	@echo "Compilando arquivo" $<
+	$(CC2) $< $(DIRETIVA2) -o $@
+	
+
+matriz-serial.o: matriz-serial.c
+	@echo "Compilando arquivo" $<
+	$(CC) $< $(OBJ)
+	mv a.out $@
+
+matriz-parallel.o: matriz-parallel.c
+	@echo "Compilando arquivo" $<
+	$(CC) $< $(OBJ) $(DIRETIVA)
+	mv a.out $@
+
+all: $(OBJETOS)
+
+
+clean:
+	rm -f $(OBJETOS)
