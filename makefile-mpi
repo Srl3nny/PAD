@@ -1,0 +1,28 @@
+
+#Arquivo makefile para exercício de pthreads disciplina FT045a
+#Bruno Luciano Amadio Caires
+#Data: 01/05/16
+#
+CC=mpcc
+CC_2=xlc
+DIRETIVA=-q64 -qarch=pwr7 -qtune=pwr7
+
+
+FONTES= parallel.c serial.c
+OBJETOS= $(FONTES:.c=.o)
+
+parallel.o: parallel.c
+	@echo "Compilando arquivo" $<
+	$(CC) $< $(DIRETIVA)
+	mv a.out $@
+
+serial.o: serial.c
+	@echo "Compilando arquivo" $<
+	$(CC_2) $<  $(DIRETIVA) 
+	mv a.out $@
+
+all: $(OBJETOS)
+
+
+clean:
+	rm -f $(OBJETOS)
