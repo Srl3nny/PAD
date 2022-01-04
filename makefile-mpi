@@ -1,6 +1,6 @@
 
 #Arquivo makefile para exercício de pthreads disciplina FT045a
-#Bruno Luciano Amadio Caires
+#Bruno
 #Data: 01/05/16
 #
 CC=mpcc
